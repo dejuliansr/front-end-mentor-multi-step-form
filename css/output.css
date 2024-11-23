@@ -2022,11 +2022,11 @@ video {
 }
 
 .bg-sidebar-destop {
-  background-image: url('/assets/images/bg-sidebar-desktop.jpg');
+  background-image: url('https://raw.githubusercontent.com/dejuliansr/front-end-mentor-multi-step-form/1af2005db63d35644414b5af9d7e6c0fc089fcae/assets/images/bg-sidebar-desktop.svg');
 }
 
 .bg-sidebar-mobile {
-  background-image: url('/assets/images/bg-sidebar-mobile.jpg');
+  background-image: url('https://github.com/dejuliansr/front-end-mentor-multi-step-form/blob/master/assets/images/bg-sidebar-mobile.jpg?raw=');
 }
 
 .decoration-slice {

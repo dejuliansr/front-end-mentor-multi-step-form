@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'sidebar-destop': "url('/assets/images/bg-sidebar-desktop.jpg')",
-        'sidebar-mobile': "url('/assets/images/bg-sidebar-mobile.jpg')",
+        'sidebar-destop': "url('https://raw.githubusercontent.com/dejuliansr/front-end-mentor-multi-step-form/1af2005db63d35644414b5af9d7e6c0fc089fcae/assets/images/bg-sidebar-desktop.svg')",
+        'sidebar-mobile': "url('https://github.com/dejuliansr/front-end-mentor-multi-step-form/blob/master/assets/images/bg-sidebar-mobile.jpg?raw=')",
       },
       colors: {
         'Marine-blue': 'hsl(213, 96%, 18%)',
