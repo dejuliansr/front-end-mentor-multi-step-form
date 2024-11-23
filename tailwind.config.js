@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'sidebar-destop': "url('/assets/images/bg-sidebar-desktop.svg')",
-        'sidebar-mobile': "url('/assets/images/bg-sidebar-mobile.svg')",
+        'sidebar-destop': "url('/assets/images/bg-sidebar-desktop.jpg')",
+        'sidebar-mobile': "url('/assets/images/bg-sidebar-mobile.jpg')",
       },
       colors: {
         'Marine-blue': 'hsl(213, 96%, 18%)',

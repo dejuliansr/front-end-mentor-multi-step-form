@@ -2022,11 +2022,11 @@ video {
 }
 
 .bg-sidebar-destop {
-  background-image: url('/assets/images/bg-sidebar-desktop.svg');
+  background-image: url('/assets/images/bg-sidebar-desktop.jpg');
 }
 
 .bg-sidebar-mobile {
-  background-image: url('/assets/images/bg-sidebar-mobile.svg');
+  background-image: url('/assets/images/bg-sidebar-mobile.jpg');
 }
 
 .decoration-slice {
