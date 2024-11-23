@@ -1,0 +1,34 @@
+.active-step-circle {
+  background-color: hsl(206, 94%, 87%);
+  color: hsl(243, 100%, 62%);
+  border: none;
+}
+
+.error-message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: hsl(354, 84%, 57%);
+}
+
+.selected-plan {
+  border-color: hsl(243, 100%, 62%);
+  background-color: #ebf4ff;
+  transition: all 0.3s ease;
+}
+
+/* Tambahkan di file CSS Anda */
+.label-active {
+  border-color: hsl(243, 100%, 62%);
+  background-color: #eef2ff;
+}
+
+#billingToggle:checked + label > span {
+  transform: translateX(100%);
+}
+
+input:checked + label {
+  background-color: hsl(213, 96%, 18%);
+}
