@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     monthlyText.classList.remove('text-gray-400');
     yearlyText.classList.add('text-gray-400');
     yearlyText.classList.remove('text-blue-600');
-    
+
     // Update harga untuk "Monthly" jika toggle tidak dicentang
     updatePlanPrices(false);
     updateStep3Prices(false);
@@ -235,17 +235,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update Plan Prices on toggle change
   if (billingToggle) {
     billingToggle.addEventListener('change', (e) => {
-      isMonthly = !e.target.checked; // Update isMonthly berdasarkan toggle
+      const isYearly = e.target.checked;
 
       // Update harga untuk Plan dan Step 3
-      updatePlanPrices(e.target.checked);
-      updateStep3Prices(e.target.checked);
-      
-      // Update harga di Step 4
-      updateStep4Summary();
+      updatePlanPrices(isYearly);
+      updateStep3Prices(isYearly);
+
+      // Jika ada plan yang dipilih, perbarui detailnya
+      const selectedElement = document.querySelector('.plan-option.selected-plan');
+      if (selectedElement) {
+        const planName = selectedElement.dataset.planName;
+        const price = isYearly
+          ? parseInt(selectedElement.dataset.yearlyPrice)
+          : parseInt(selectedElement.dataset.monthlyPrice);
+
+        selectPlan(planName, price, isYearly ? "Yearly" : "Monthly");
+        updateStep4Summary(); // Perbarui step 4 summary
+      }
 
       // Ubah warna teks sesuai posisi toggle
-      if (e.target.checked) {
+      if (isYearly) {
         monthlyText.classList.add('text-gray-400');
         monthlyText.classList.remove('text-blue-600');
         yearlyText.classList.add('text-blue-600');
@@ -258,11 +267,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
   // Perbarui harga awal saat halaman dimuat
   const initialIsYearly = billingToggle?.checked || false;
   updateStep3Prices(initialIsYearly);
-  updateStep4Summary();  // Pastikan harga di Step 4 diperbarui saat halaman dimuat
+  updateStep4Summary(); // Pastikan harga di Step 4 diperbarui saat halaman dimuat
 });
 
 let selectedPlan = {};
@@ -290,6 +299,7 @@ function toggleAddon(name, price, isChecked) {
   }
 }
 
+// Menyimpan dan mengatur plan yang dipilih
 const planOptions = document.querySelectorAll('.plan-option');
 
 planOptions.forEach(option => {
@@ -307,6 +317,9 @@ planOptions.forEach(option => {
       ? parseInt(option.dataset.yearlyPrice)
       : parseInt(option.dataset.monthlyPrice);
     selectPlan(planName, price, isYearly ? "Yearly" : "Monthly");
+
+    // Perbarui Step 4 Summary
+    updateStep4Summary();
   });
 });
 
@@ -374,6 +387,14 @@ function updateStep4Summary() {
   totalPriceElement.textContent = `+$${totalPrice}/${planBilling === "Monthly" ? "mo" : "yr"}`;
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const changePlanButton = document.getElementById('changePlanButton');
+  if (changePlanButton) {
+    changePlanButton.addEventListener('click', () => {
+      showStep(2); // Navigasi ke langkah 2
+    });
+  }
+});
 
 function showPopup(message) {
   // Update pesan di dalam popup
