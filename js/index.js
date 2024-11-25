@@ -12,42 +12,57 @@ const getStepElement = (step, type) => document.getElementById(`step${step}${typ
 
 // Step navigation
 function showStep(step) {
-  // Hide all step content and reset step circles
-  for (let i = 1; i <= totalSteps; i++) {
-    toggleClass(getStepElement(i, 'Content'), 'hidden', true);
-    toggleClass(getStepElement(i, 'Circle'), 'active-step-circle', false);
-  }
-
-  // Show the requested step content and highlight the circle
-  toggleClass(getStepElement(step, 'Content'), 'hidden', false);
-  toggleClass(getStepElement(step, 'Circle'), 'active-step-circle', true);
-
+  // Perbarui langkah saat ini
   currentStep = step;
 
-  // Update prices when Step 3 is shown
+  // Perbarui konten dan lingkaran langkah
+  for (let i = 1; i <= totalSteps; i++) {
+    toggleClass(getStepElement(i, 'Content'), 'hidden', i !== step);
+    toggleClass(getStepElement(i, 'Circle'), 'active-step-circle', i === step);
+  }
+
+  // Perbarui tombol Desktop
+  const backButtonDesktop = document.querySelector('.go-back-button');
+  const nextButtonDesktop = document.querySelector('.next-step-button');
+
+  // Perbarui tombol Mobile
+  const backButtonMobile = document.querySelector('.go-back-button-mobile');
+  const nextButtonMobile = document.querySelector('.next-step-button-mobile');
+
+  // Tombol Back
+  if (step === 1) {
+    backButtonDesktop.classList.add('hidden');
+    backButtonMobile.classList.add('hidden');
+  } else {
+    backButtonDesktop.classList.remove('hidden');
+    backButtonMobile.classList.remove('hidden');
+  }
+
+  // Tombol Next
+  if (step === totalSteps) {
+    nextButtonDesktop.textContent = 'Confirm';
+    nextButtonMobile.textContent = 'Confirm';
+  } else {
+    nextButtonDesktop.textContent = 'Next Step';
+    nextButtonMobile.textContent = 'Next Step';
+  }
+
+  // Tindakan khusus untuk langkah 3 (contoh)
   if (step === 3) {
     const isYearly = document.getElementById('billingToggle')?.checked || false;
     updateStep3Prices(isYearly);
   }
 
-  // Update button states
-  const backButton = document.querySelector('button[onclick="previousStep()"]');
-  const nextButton = document.querySelector('button[onclick="nextStep()"]');
-
-  if (step === 1) {
-    // Hide "Go Back" button on step 1
-    backButton.classList.add('hidden');
-  } else {
-    backButton.classList.remove('hidden');
-  }
-
-  if (step === totalSteps) {
-    // Change "Next Step" button to "Confirm" on last step
-    nextButton.textContent = 'Confirm';
-  } else {
-    nextButton.textContent = 'Next Step';
+  // Tampilkan "Thank You" saat di langkah terakhir
+  if (step > totalSteps) {
+    document.getElementById('thankYou').classList.remove('hidden');
+    backButtonDesktop.classList.add('hidden');
+    nextButtonDesktop.classList.add('hidden');
+    backButtonMobile.classList.add('hidden');
+    nextButtonMobile.classList.add('hidden');
   }
 }
+
 
 function nextStep() {
   // Validate steps and move to the next step
