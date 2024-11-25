@@ -174,6 +174,12 @@ function updatePlanPrices(isYearly) {
     pro: document.querySelector('#step2Content .pro-price')
   };
 
+  const discountTexts = {
+    arcade: document.querySelector('#step2Content .arcade-discount'),
+    advanced: document.querySelector('#step2Content .advanced-discount'),
+    pro: document.querySelector('#step2Content .pro-discount')
+  };
+
   const yearlyPrices = { arcade: '$90/yr', advanced: '$120/yr', pro: '$150/yr' };
   const monthlyPrices = { arcade: '$9/mo', advanced: '$12/mo', pro: '$15/mo' };
 
@@ -182,6 +188,17 @@ function updatePlanPrices(isYearly) {
   prices.arcade.textContent = updatedPrices.arcade;
   prices.advanced.textContent = updatedPrices.advanced;
   prices.pro.textContent = updatedPrices.pro;
+
+  // Show the "2 month free" text if yearly plan is selected
+  if (isYearly) {
+    discountTexts.arcade.classList.remove('hidden');
+    discountTexts.advanced.classList.remove('hidden');
+    discountTexts.pro.classList.remove('hidden');
+  } else {
+    discountTexts.arcade.classList.add('hidden');
+    discountTexts.advanced.classList.add('hidden');
+    discountTexts.pro.classList.add('hidden');
+  }
 }
 
 function updateStep3Prices(isYearly) {
@@ -204,24 +221,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pastikan toggle berada dalam status "Monthly" (tidak dicentang) saat halaman dimuat
   if (billingToggle && !billingToggle.checked) {
-    // Set tulisan untuk Monthly dan Yearly sesuai posisi toggle
     monthlyText.classList.add('text-blue-600');
     monthlyText.classList.remove('text-gray-400');
     yearlyText.classList.add('text-gray-400');
     yearlyText.classList.remove('text-blue-600');
-
+    
     // Update harga untuk "Monthly" jika toggle tidak dicentang
     updatePlanPrices(false);
+    updateStep3Prices(false);
+    updateStep4Summary(); // Pastikan harga di Step 4 juga diupdate
   }
 
   // Update Plan Prices on toggle change
   if (billingToggle) {
     billingToggle.addEventListener('change', (e) => {
-      isMonthly = !e.target.checked; // Update isMonthly based on toggle
+      isMonthly = !e.target.checked; // Update isMonthly berdasarkan toggle
+
+      // Update harga untuk Plan dan Step 3
       updatePlanPrices(e.target.checked);
       updateStep3Prices(e.target.checked);
+      
+      // Update harga di Step 4
+      updateStep4Summary();
 
-      // Change text color based on toggle state
+      // Ubah warna teks sesuai posisi toggle
       if (e.target.checked) {
         monthlyText.classList.add('text-gray-400');
         monthlyText.classList.remove('text-blue-600');
@@ -235,9 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  
   // Perbarui harga awal saat halaman dimuat
   const initialIsYearly = billingToggle?.checked || false;
   updateStep3Prices(initialIsYearly);
+  updateStep4Summary();  // Pastikan harga di Step 4 diperbarui saat halaman dimuat
 });
 
 let selectedPlan = {};
@@ -309,14 +334,14 @@ addonCheckboxes.forEach(checkbox => {
   });
 });
 
-// Update Step 4 summary content
+// Update Step 4 Summary Content
 function updateStep4Summary() {
-  const isYearly = !isMonthly; // Use the updated isMonthly
+  const isYearly = !isMonthly; // Gunakan nilai isMonthly yang terupdate
   const planName = selectedPlan.name;
   const planPrice = selectedPlan.price;
   const planBilling = isYearly ? "Yearly" : "Monthly";
 
-  // Update plan info in Step 4
+  // Update info plan di Step 4
   const planNameElement = document.querySelector('.plan-name');
   const planPriceElement = document.querySelector('.plan-price');
   const planTotal = document.querySelector('.total');
@@ -324,10 +349,12 @@ function updateStep4Summary() {
   planPriceElement.textContent = `$${planPrice}/${planBilling === "Monthly" ? "mo" : "yr"}`;
   planTotal.textContent = `Total (${planBilling})`;
 
-  // Update add-ons summary in Step 4
+  // Update summary add-ons di Step 4
   const addonsSummary = document.querySelector('.addons-summary');
   addonsSummary.innerHTML = ''; // Clear previous add-ons
   let totalAddonsPrice = 0;
+
+  // Looping untuk menampilkan add-ons yang dipilih
   selectedAddons.forEach(addon => {
     const addonElement = document.createElement('div');
     addonElement.classList.add('addon-item');
@@ -341,11 +368,12 @@ function updateStep4Summary() {
     totalAddonsPrice += addon.price;
   });
 
-  // Update total price in Step 4
+  // Menghitung total harga (plan + add-ons)
   const totalPriceElement = document.querySelector('.total-price');
   const totalPrice = planPrice + totalAddonsPrice;
   totalPriceElement.textContent = `+$${totalPrice}/${planBilling === "Monthly" ? "mo" : "yr"}`;
 }
+
 
 function showPopup(message) {
   // Update pesan di dalam popup
