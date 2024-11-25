@@ -663,12 +663,12 @@ video {
   inset: 0px;
 }
 
-.bottom-0 {
-  bottom: 0px;
-}
-
 .end-1 {
   inset-inline-end: 0.25rem;
+}
+
+.bottom-0 {
+  bottom: 0px;
 }
 
 .isolate {
@@ -2022,11 +2022,11 @@ video {
 }
 
 .bg-sidebar-destop {
-  background-image: url('https://raw.githubusercontent.com/dejuliansr/front-end-mentor-multi-step-form/1af2005db63d35644414b5af9d7e6c0fc089fcae/assets/images/bg-sidebar-desktop.svg');
+  background-image: url('/assets/images/bg-sidebar-desktop.jpg');
 }
 
 .bg-sidebar-mobile {
-  background-image: url('https://github.com/dejuliansr/front-end-mentor-multi-step-form/blob/master/assets/images/bg-sidebar-mobile.jpg?raw=');
+  background-image: url('/assets/images/bg-sidebar-mobile.jpg');
 }
 
 .decoration-slice {
@@ -2922,6 +2922,10 @@ video {
     align-items: center;
   }
 
+  .max-md\:p-4 {
+    padding: 1rem;
+  }
+
   .max-md\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -2976,6 +2980,10 @@ video {
     --tw-space-x-reverse: 0;
     margin-right: calc(1rem * var(--tw-space-x-reverse));
     margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .md\:p-4 {
+    padding: 1rem;
   }
 
   .md\:py-36 {
