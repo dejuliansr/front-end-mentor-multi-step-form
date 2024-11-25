@@ -8,34 +8,38 @@ const toggleClass = (element, className, add) => {
   else element.classList.remove(className);
 };
 
-const getStepElement = (step, type) => document.getElementById(`step${step}${type}`);
+const getStepElement = (step, type, layout) => {
+  const suffix = layout === 'mobile' ? 'Mobile' : 'Desktop';
+  return document.getElementById(`step${step}${type}${suffix}`);
+};
 
 // Step navigation
 function showStep(step) {
-  // Perbarui langkah saat ini
   currentStep = step;
 
-  // Perbarui konten dan lingkaran langkah
+  // Update langkah untuk mobile dan desktop
   for (let i = 1; i <= totalSteps; i++) {
-    toggleClass(getStepElement(i, 'Content'), 'hidden', i !== step);
-    toggleClass(getStepElement(i, 'Circle'), 'active-step-circle', i === step);
+    // Perbarui lingkaran langkah
+    toggleClass(getStepElement(i, 'Circle', 'mobile'), 'active-step-circle', i === step);
+    toggleClass(getStepElement(i, 'Circle', 'desktop'), 'active-step-circle', i === step);
+
+    // Perbarui konten untuk setiap langkah (mobile dan desktop menggunakan konten yang sama)
+    toggleClass(document.getElementById(`step${i}Content`), 'hidden', i !== step);
   }
 
-  // Perbarui tombol Desktop
+  // Update tombol berdasarkan langkah saat ini
   const backButtonDesktop = document.querySelector('.go-back-button');
   const nextButtonDesktop = document.querySelector('.next-step-button');
-
-  // Perbarui tombol Mobile
   const backButtonMobile = document.querySelector('.go-back-button-mobile');
   const nextButtonMobile = document.querySelector('.next-step-button-mobile');
 
   // Tombol Back
   if (step === 1) {
-    backButtonDesktop.classList.add('hidden');
-    backButtonMobile.classList.add('hidden');
+    backButtonDesktop?.classList.add('hidden');
+    backButtonMobile?.classList.add('hidden');
   } else {
-    backButtonDesktop.classList.remove('hidden');
-    backButtonMobile.classList.remove('hidden');
+    backButtonDesktop?.classList.remove('hidden');
+    backButtonMobile?.classList.remove('hidden');
   }
 
   // Tombol Next
@@ -47,21 +51,16 @@ function showStep(step) {
     nextButtonMobile.textContent = 'Next Step';
   }
 
-  // Tindakan khusus untuk langkah 3 (contoh)
-  if (step === 3) {
-    const isYearly = document.getElementById('billingToggle')?.checked || false;
-    updateStep3Prices(isYearly);
-  }
-
-  // Tampilkan "Thank You" saat di langkah terakhir
+  // Tampilkan "Thank You" jika langkah lebih dari totalSteps
   if (step > totalSteps) {
-    document.getElementById('thankYou').classList.remove('hidden');
-    backButtonDesktop.classList.add('hidden');
-    nextButtonDesktop.classList.add('hidden');
-    backButtonMobile.classList.add('hidden');
-    nextButtonMobile.classList.add('hidden');
+    document.getElementById('thankYou')?.classList.remove('hidden');
+    backButtonDesktop?.classList.add('hidden');
+    nextButtonDesktop?.classList.add('hidden');
+    backButtonMobile?.classList.add('hidden');
+    nextButtonMobile?.classList.add('hidden');
   }
 }
+
 
 
 function nextStep() {
