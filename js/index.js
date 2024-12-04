@@ -148,7 +148,7 @@ function setError(input, message) {
   let error = parent.querySelector('.error-message');
   if (!error) {
     error = document.createElement('p');
-    error.className = 'error-message text-red-500 text-sm mt-1';
+    error.className = 'error-message text-red-500 text-sm text-sm sm:text-xs mt-1';
     parent.appendChild(error);
   }
   error.innerText = message;
