@@ -32,3 +32,14 @@
 input:checked + label {
   background-color: hsl(213, 96%, 18%);
 }
+
+@media (max-width: 768px) {
+  .error-message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: black;
+  }
+}

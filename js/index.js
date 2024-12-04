@@ -134,7 +134,7 @@ function validateStep1() {
     setError(inputs.phone, "This Field is required");
     isValid = false;
   } else if (!/^\+?\d+$/.test(inputs.phone.value.trim())) {
-    setError(inputs.phone, "Phone number must contain only digits");
+    setError(inputs.phone, "Only Digits");
     isValid = false;
   } else clearError(inputs.phone);
 
