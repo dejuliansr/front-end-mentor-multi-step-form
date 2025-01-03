@@ -426,11 +426,24 @@ function showPopup(message) {
   // Update pesan di dalam popup
   document.getElementById('popupMessage').innerText = message;
 
-  // Tampilkan popup
+  const popup = document.querySelector('#popupAlert .bg-white');
+  popup.classList.remove('scale-out');
+  popup.classList.add('scale-in');
+
+  // Tampilkan overlay
   document.getElementById('popupAlert').classList.remove('hidden');
 }
 
 function closePopup() {
-  // Sembunyikan popup
-  document.getElementById('popupAlert').classList.add('hidden');
+  const popup = document.querySelector('#popupAlert .bg-white');
+
+  // Tambahkan animasi keluar ke popup
+  popup.classList.remove('scale-in');
+  popup.classList.add('scale-out');
+
+  // Sembunyikan overlay setelah animasi selesai
+  popup.addEventListener('animationend', function handleAnimationEnd() {
+    document.getElementById('popupAlert').classList.add('hidden');
+    popup.removeEventListener('animationend', handleAnimationEnd);
+  });
 }
