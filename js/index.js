@@ -116,50 +116,73 @@ function validateStep1() {
     phone: document.querySelector('#step1Content input[type="tel"]')
   };
 
-  // Validate inputs
+  // Validasi Name
   if (!inputs.name.value.trim()) {
     setError(inputs.name, "This Field is required");
     isValid = false;
-  } else clearError(inputs.name);
+  } else {
+    clearError(inputs.name);
+  }
 
+  // Validasi Email
   if (!inputs.email.value.trim()) {
     setError(inputs.email, "This Field is required");
     isValid = false;
   } else if (!isValidEmail(inputs.email.value.trim())) {
     setError(inputs.email, "Please enter a valid email");
     isValid = false;
-  } else clearError(inputs.email);
+  } else {
+    clearError(inputs.email);
+  }
 
+  // Validasi Phone
   if (!inputs.phone.value.trim()) {
     setError(inputs.phone, "This Field is required");
     isValid = false;
   } else if (!/^\+?\d+$/.test(inputs.phone.value.trim())) {
     setError(inputs.phone, "Only Digits");
     isValid = false;
-  } else clearError(inputs.phone);
+  } else {
+    clearError(inputs.phone);
+  }
 
   return isValid;
 }
 
 function setError(input, message) {
-  const parent = input.parentElement;
-  input.classList.add('border-red-500');
+  const parent = input.parentElement; // Mengambil elemen parent
+  let errorLabel = parent.querySelector('.error-message');
 
-  let error = parent.querySelector('.error-message');
-  if (!error) {
-    error = document.createElement('p');
-    error.className = 'error-message text-red-500 text-sm text-sm sm:text-xs mt-1';
-    parent.appendChild(error);
+  // Tambahkan pesan error jika belum ada
+  if (!errorLabel) {
+    errorLabel = document.createElement('p');
+    errorLabel.className = 'error-message text-red-500 text-sm';
+    parent.appendChild(errorLabel);
   }
-  error.innerText = message;
+  errorLabel.innerText = message;
+
+  // Tambahkan kelas `shake` untuk animasi
+  input.classList.add('shake', 'border-red-500');
+
+  // Hapus animasi shake setelah selesai
+  input.addEventListener('animationend', () => {
+    input.classList.remove('shake');
+  }, { once: true });
 }
 
 function clearError(input) {
   const parent = input.parentElement;
+  const errorLabel = parent.querySelector('.error-message');
+
+  // Hapus pesan error jika ada
+  if (errorLabel) {
+    parent.removeChild(errorLabel);
+  }
+
+  // Hapus kelas error dari input
   input.classList.remove('border-red-500');
-  const error = parent.querySelector('.error-message');
-  if (error) parent.removeChild(error);
 }
+
 
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -234,12 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Update Plan Prices on toggle change
   if (billingToggle) {
+    let isYearlySelected = false;
     billingToggle.addEventListener('change', (e) => {
       const isYearly = e.target.checked;
+      isYearlySelected = isYearly; // Simpan status global
 
       // Update harga untuk Plan dan Step 3
       updatePlanPrices(isYearly);
       updateStep3Prices(isYearly);
+      updateStep4Summary(); // Pastikan step 4 diperbarui
 
       // Jika ada plan yang dipilih, perbarui detailnya
       const selectedElement = document.querySelector('.plan-option.selected-plan');

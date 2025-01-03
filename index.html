@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
     <link rel="stylesheet" href="css/active.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/output.css">
     <title>Frontend Mentor | Multi-step form</title>
   </head>
   <body>
@@ -64,7 +64,7 @@
           </div>
     
           <!-- Form Content for Step 1 -->
-          <div class="w-full p-6">
+          <div class="w-full p-6 slide-right">
             <div class="w-full p-6" id="step1Content">
               <h2 class="text-3xl font-bold text-Marine-blue">Personal info</h2>
               <p class="text-gray-600 mt-2">Please provide your name, email address, and phone number.</p>
@@ -85,7 +85,7 @@
             </div>
       
             <!-- Form Content for Step 2 -->
-            <div class="w-full p-6 hidden" id="step2Content">
+            <div class="w-full p-6 hidden slide-right" id="step2Content">
               <h2 class="text-2xl font-bold text-Marine-blue">Select your plan</h2>
               <p class="text-gray-600 mt-2">You have the option of monthly or yearly billing.</p>
               <div class="mt-6 md:flex md:space-x-4">
@@ -114,7 +114,7 @@
                 </div>
   
                 <!-- Pro Plan -->
-                <div class="plan-option flex md:flex-col max-md:items-center gap-5 mb-6 md:w-1/3 border rounded-lg p-4 cursor-pointer hover:border-blue-500" data-plan-name="Pro" data-monthly-price="15" data-yearly-price="150">
+                <div class="plan-option flex md:flex-col max-md:items-center gap-5 mb-6 md:w-1/3 border rounded-lg p-4 cursor-pointer hover:border-blue-500 slide-right" data-plan-name="Pro" data-monthly-price="15" data-yearly-price="150">
                   <div class="md:pb-12">
                     <img src="./assets/images/icon-pro.svg" alt="Pro Icon" class="w-12 h-12">
                   </div>
@@ -147,7 +147,7 @@
             </div>
   
             <!-- Form Content for Step 3 -->
-            <div class="w-full p-6 hidden" id="step3Content">
+            <div class="w-full p-6 hidden slide-right" id="step3Content">
               <h2 class="text-3xl font-bold text-Marine-blue mb-2">Pick add-ons</h2>
               <p class="text-gray-500 mb-6">Add-ons help enhance your gaming experience.</p>
               <div class="space-y-4 mb-20">
@@ -196,7 +196,7 @@
             </div>
             
             <!-- Form Content for Step 4 -->
-            <div class="w-full p-6 md:mb-32 hidden" id="step4Content">
+            <div class="w-full p-6 md:mb-32 hidden slide-right" id="step4Content">
               <h2 class="text-2xl md:text-3xl font-bold text-Marine-blue mb-4">Finishing up</h2>
               <p class="text-gray-500 mb-6">Double-check everything looks OK before confirming.</p>
   
@@ -220,7 +220,7 @@
               </div>
             </div>
   
-            <div class="w-full px-6 py-6 md:py-36 hidden" id="thankYou">
+            <div class="w-full px-6 py-6 md:py-36 hidden slide-right" id="thankYou">
               <div class="flex justify-center items-center mb-4">
                 <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
                   <img src="./assets/images/icon-thank-you.svg" alt="Thank You">
