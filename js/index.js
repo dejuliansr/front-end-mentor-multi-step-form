@@ -426,24 +426,30 @@ function showPopup(message) {
   // Update pesan di dalam popup
   document.getElementById('popupMessage').innerText = message;
 
+  const popupAlert = document.getElementById('popupAlert');
   const popup = document.querySelector('#popupAlert .bg-white');
+
+  // Animasi masuk untuk overlay dan popup
+  popupAlert.classList.remove('hidden', 'scale-out');
+  popupAlert.classList.add('scale-in');
   popup.classList.remove('scale-out');
   popup.classList.add('scale-in');
-
-  // Tampilkan overlay
-  document.getElementById('popupAlert').classList.remove('hidden');
 }
 
 function closePopup() {
+  const popupAlert = document.getElementById('popupAlert');
   const popup = document.querySelector('#popupAlert .bg-white');
 
-  // Tambahkan animasi keluar ke popup
+  // Animasi keluar untuk overlay dan popup
+  popupAlert.classList.remove('scale-in');
+  popupAlert.classList.add('scale-out');
   popup.classList.remove('scale-in');
   popup.classList.add('scale-out');
 
   // Sembunyikan overlay setelah animasi selesai
-  popup.addEventListener('animationend', function handleAnimationEnd() {
-    document.getElementById('popupAlert').classList.add('hidden');
-    popup.removeEventListener('animationend', handleAnimationEnd);
+  popupAlert.addEventListener('animationend', function handleAnimationEnd() {
+    popupAlert.classList.add('hidden');
+    popupAlert.removeEventListener('animationend', handleAnimationEnd);
   });
 }
+
