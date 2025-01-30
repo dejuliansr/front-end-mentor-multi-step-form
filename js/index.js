@@ -260,12 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let isYearlySelected = false;
     billingToggle.addEventListener('change', (e) => {
       const isYearly = e.target.checked;
-      isYearlySelected = isYearly; // Simpan status global
+      isMonthly = !isYearly; // Perbarui nilai isMonthly
 
-      // Update harga untuk Plan dan Step 3
       updatePlanPrices(isYearly);
       updateStep3Prices(isYearly);
-      updateStep4Summary(); // Pastikan step 4 diperbarui
+      updateStep4Summary();
 
       // Jika ada plan yang dipilih, perbarui detailnya
       const selectedElement = document.querySelector('.plan-option.selected-plan');
@@ -452,4 +451,3 @@ function closePopup() {
     popupAlert.removeEventListener('animationend', handleAnimationEnd);
   });
 }
-
